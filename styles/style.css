@@ -86,13 +86,6 @@ header {
   border: none;
   background: transparent !important;
 }
-#container {
-	margin: 20px;
-	width: 100px;
-	height: 100px;
-	position: relative;
-  }
-
   .c-progress{
 	--uicProgressSize: var(--cProgressSize);
 	--uicProgressCircumference: var(--cProgressCircumference, 2.51327em);
@@ -122,8 +115,8 @@ header {
   .c-progress__progress-value{
 	stroke-dasharray: var(--uicProgressCircumference);
 	stroke-dashoffset: var(--uicProgressGraphValue);
-	  transition: stroke-dashoffset 1.5s cubic-bezier(0.42, 0, 0, 1.1), stroke .5s ease-out;
-  }
+	transition: stroke-dashoffset 1.5s cubic-bezier(0.42, 0, 0, 1.1), stroke .5s ease-out;
+	}
   
   /*
   =====
@@ -149,20 +142,22 @@ header {
   
   .c-progressbar__value{
 	box-sizing: border-box;
-	width: 100%;
-	height: 100%;
+	width: 25vmin;
+	height: 25vmin;
 	
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	
 	position: absolute;
-	top: 0;
-	left: 0;
+	top: 25%;
+	left: 25%;
+	
   }
   
   .c-progressbar__value::after{
-	  content: var(--uicProgressBarUnit);
+	  content: var(--uicProgressBarUnit);  
+	  
   }
   
   .c-progressbar__value{
@@ -170,7 +165,9 @@ header {
 	font-weight: var(--uicProgressBarValueFontWeight);
 	font-size: var(--uicProgressBarValueFontSize);
 	  color: var(--uicProgressBarValueTextColor);
-  }
+
+	}
+
   
   /*
   =====
@@ -189,7 +186,6 @@ header {
 	  --cProgressBarValueTextColor: white;	
   }
   
-
-.bar img {
-	width: 100%;
+.photo{
+	transform: rotate(90deg);
 }

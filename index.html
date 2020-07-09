@@ -50,7 +50,7 @@
   </nav>
   <header class="bg-dark text-white">
     <div class="container text-center">
-      <h1 id="app">TITLE</h1>
+      <h1 id="app">Obecny prezydent:</h1>
 
     </div>
 
@@ -59,31 +59,31 @@
   </div>
   <div class="container">
     <div class="row">
-      <div class="col-lg-6 text-center animate__animated animate__fadeInLeft">
-
+      <div class="col-lg-12 text-center animate__animated animate__fadeInLeft">
+        <h2>Andrzej Duda</h2>
         <div class="page">
           <center>
-          <div class="c-progressbar js-progressbar">
-            <span class="c-progressbar__value js-progressbar__value">70</span>
-            <svg class="c-progress js-progressbar__progress">
-              <image src="/images/duda.png" alt="dump" width="150" height="180"/>
-              <circle class="c-progress__circle c-progress__progress-bg" cx="50%" cy="50%" r=".4em"
-                stroke-width="var(--cProgressStrokeWidth)" stroke="var(--cProgressColor)" fill="none"></circle>
-              <circle class="c-progress__circle c-progress__progress-value" cx="50%" cy="50%" r=".4em"
-                stroke-width="var(--cProgressStrokeWidth)" stroke="var(--cProgressColor)" stroke-linejoin="round"
-                stroke-linecap="round" fill="none"></circle>
-            </svg>
-          </div>
-          <form class="js-form page__controls">
-            <input type="number" class="field js-field-value" value="50" min="0" max="100" autofocus required>
-            <span class="page__hint">enter your value from 0 to 100</span>
-          </form>
-        </center>
+            <div class="c-progressbar js-progressbar">
+              <image src="/images/duda.png" alt="dump" width="10vmin" height="20vmin" class="c-progressbar__value">
+              </image>
+              <svg class="c-progress js-progressbar__progress">
+                <circle class="c-progress__circle c-progress__progress-bg" cx="50%" cy="50%" r=".4em"
+                  stroke-width="var(--cProgressStrokeWidth)" stroke="var(--cProgressColor)" fill="none"></circle>
+                <circle class="c-progress__circle c-progress__progress-value" cx="50%" cy="50%" r=".4em"
+                  stroke-width="var(--cProgressStrokeWidth)" stroke="var(--cProgressColor)" stroke-linejoin="round"
+                  stroke-linecap="round" fill="none"></circle>
+              </svg>
+            </div>
+            <form class="js-form page__controls">
+              <div class="lead">Pozostało mu: </div>
+              <div id="demo" class="lead"></div>
+            </form>
+          </center>
         </div>
       </div>
-      <div class="col-lg-6 text-center animate__animated animate__fadeInRight">
-        <h1 class="mt-5 p-2">Andrzej Duda</h1>
-        <img src="/images/duda.png" alt="dump" width="150" height="180">
+      <div class="col-lg-12 text-center animate__animated animate__fadeInRight">
+
+
         <p class="lead p-2">I like html.Html is my favourite languaż.
           Otherwise I like squirviel. </p>
         <ul class="list-unstyled">
@@ -94,97 +94,117 @@
     </div>
   </div>
 
-  
+
   <script>
-    (function(){
+    // Set the date we're counting down to
+    let countDownDate = new Date("Jul 14, 2020 12:00:00").getTime();
 
-'use strict';
+    // Update the count down every 1 second
+    let x = setInterval(function () {
 
-class Progress {
-  constructor(settings){
-    this.nodeProgress = settings.nodeProgress;      
-    this.progressStyles = window.getComputedStyle(this.nodeProgress);
-    this.progressSize = parseInt(this.progressStyles.getPropertyValue('--uicProgressSize'), 10);
-    this.progressValue = settings.progressValue;
-    this.progressRadius = settings.progressRadius || 0.4;
+      // Get today's date and time
+      let now = new Date().getTime();
 
-    this.progressCircumference = this.getProgressCircumference(this.progressRadius, this.progressSize);      
-  } 
+      // Find the distance between now and the count down date
+      let distance = countDownDate - now;
 
-  setProgressValue(newValue){
-    this.progressValue = newValue;
-  }
+      // Time calculations for days, hours, minutes and seconds
+      let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-  getProgressCircumference(radius, progressBarSize){
-    return 2 * Math.PI * radius * progressBarSize;
-  }
+      // Output the result in an element with id="demo"
+      document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+        + minutes + "m " + seconds + "s ";
+      let time = 100 - ((days / 1826) * 100);
+      console.log(time);
+      demoProgressBar.setProgressBarValue(time);
+      // If the count down is over, write some text 
+      if (distance < 0) {
+        clearInterval(x);
+        document.getElementById("demo").innerHTML = "EXPIRED";
+      }
+    }, 1000);
 
-  getProgressGraphValue(progressValue, circumference){
-    return circumference - ((progressValue * circumference) / 100);
-  }    
 
-  convertToEm(value, progressSize){
-    return `${value / progressSize}em`;
-  }
+    class Progress {
+      constructor(settings) {
+        this.nodeProgress = settings.nodeProgress;
+        this.progressStyles = window.getComputedStyle(this.nodeProgress);
+        this.progressSize = parseInt(this.progressStyles.getPropertyValue('--uicProgressSize'), 10);
+        this.progressValue = settings.progressValue;
+        this.progressRadius = settings.progressRadius || 0.4;
 
-  draw(){     
-    this.nodeProgress.style.setProperty(
-      '--uicProgressGraphValue', 
-      this.convertToEm(
-        this.getProgressGraphValue(this.progressValue, this.progressCircumference),
-        this.progressSize
-      )
-    );      
-  }
-}
+        this.progressCircumference = this.getProgressCircumference(this.progressRadius, this.progressSize);
+      }
 
-class ProgressBar extends Progress{
-  constructor(settings){
-    super({
-      nodeProgress: settings.nodeProgress,
-      progressValue: settings.progressBarValue
+      setProgressValue(newValue) {
+        this.progressValue = newValue;
+      }
+
+      getProgressCircumference(radius, progressBarSize) {
+        return 2 * Math.PI * radius * progressBarSize;
+      }
+
+      getProgressGraphValue(progressValue, circumference) {
+        return circumference - ((progressValue * circumference) / 100);
+      }
+
+      convertToEm(value, progressSize) {
+        return `${value / progressSize}em`;
+      }
+
+      draw() {
+        this.nodeProgress.style.setProperty(
+          '--uicProgressGraphValue',
+          this.convertToEm(
+            this.getProgressGraphValue(this.progressValue, this.progressCircumference),
+            this.progressSize
+          )
+        );
+      }
+    }
+
+    class ProgressBar extends Progress {
+      constructor(settings) {
+        super({
+          nodeProgress: settings.nodeProgress,
+          progressValue: settings.progressBarValue
+        });
+        this.nodeProgressBarValue = settings.nodeProgressBarValue;
+        this.draw();
+      }
+
+      setProgressBarValue(newValue) {
+        super.setProgressValue(newValue);
+        this.draw();
+      }
+
+      draw() {
+        super.draw();
+      }
+    }
+
+    /*
+    * demo initialization
+    */
+
+
+
+    let nodeDemoProgressBar = document.querySelector('.js-progressbar');
+    let demoProgressBar = new ProgressBar({
+      nodeProgress: nodeDemoProgressBar.querySelector('.js-progressbar__progress'),
     });
-    this.nodeProgressBarValue = settings.nodeProgressBarValue;
-    this.draw();
-  }
 
-  setProgressBarValue(newValue){
-    super.setProgressValue(newValue);
-    this.draw();
-  }
+    /* changing the progress bar value https://codepen.io/melnik909/pen/daePey https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_countdown*/
 
-  draw(){
-    super.draw();
-    this.nodeProgressBarValue.textContent = this.progressValue;
-  }
-}
 
-/*
-* demo initialization
-*/
 
-let demoField = document.querySelector('.js-field-value');
-let nodeDemoProgressBar = document.querySelector('.js-progressbar');
-let demoProgressBar = new ProgressBar({
-  nodeProgress: nodeDemoProgressBar.querySelector('.js-progressbar__progress'), 
-  nodeProgressBarValue: nodeDemoProgressBar.querySelector('.js-progressbar__value'),
-  progressBarValue: demoField.value
-});
 
-/* disabling browser's behavior */  
 
-document.querySelector('.js-form').addEventListener('submit', (event) => {
-  event.preventDefault();
-});
 
-/* changing the progress bar value */  
 
-demoField.addEventListener('change', () => {		
-  if (!demoField.validity.rangeOverflow & !demoField.validity.rangeUnderflow) {
-    demoProgressBar.setProgressBarValue(demoField.value);
-  }
-});
-})();
   </script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
