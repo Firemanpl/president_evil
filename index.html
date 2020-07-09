@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>President-evil</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+  <link rel="stylesheet" href="/styles/style.css">
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">President Evil</a>
+      <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#hamburger"
+        aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="icon-bar top-bar"></span>
+        <span class="icon-bar middle-bar"></span>
+        <span class="icon-bar bottom-bar"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="hamburger">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="#">PREZYDENCI
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">POZOSTALI KANDYDACI</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">MY PROJECTS</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">CONTACT</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <header class="bg-dark text-white">
+    <div class="container text-center">
+      <h1 id="app">TITLE</h1>
+
+    </div>
+
+  </header>
+  <div class="bar">
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 text-center animate__animated animate__fadeInLeft">
+
+        <div class="page">
+          <center>
+          <div class="c-progressbar js-progressbar">
+            <span class="c-progressbar__value js-progressbar__value">70</span>
+            <svg class="c-progress js-progressbar__progress">
+              <image src="/images/duda.png" alt="dump" width="150" height="180"/>
+              <circle class="c-progress__circle c-progress__progress-bg" cx="50%" cy="50%" r=".4em"
+                stroke-width="var(--cProgressStrokeWidth)" stroke="var(--cProgressColor)" fill="none"></circle>
+              <circle class="c-progress__circle c-progress__progress-value" cx="50%" cy="50%" r=".4em"
+                stroke-width="var(--cProgressStrokeWidth)" stroke="var(--cProgressColor)" stroke-linejoin="round"
+                stroke-linecap="round" fill="none"></circle>
+            </svg>
+          </div>
+          <form class="js-form page__controls">
+            <input type="number" class="field js-field-value" value="50" min="0" max="100" autofocus required>
+            <span class="page__hint">enter your value from 0 to 100</span>
+          </form>
+        </center>
+        </div>
+      </div>
+      <div class="col-lg-6 text-center animate__animated animate__fadeInRight">
+        <h1 class="mt-5 p-2">Andrzej Duda</h1>
+        <img src="/images/duda.png" alt="dump" width="150" height="180">
+        <p class="lead p-2">I like html.Html is my favourite languaż.
+          Otherwise I like squirviel. </p>
+        <ul class="list-unstyled">
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  
+  <script>
+    (function(){
+
+'use strict';
+
+class Progress {
+  constructor(settings){
+    this.nodeProgress = settings.nodeProgress;      
+    this.progressStyles = window.getComputedStyle(this.nodeProgress);
+    this.progressSize = parseInt(this.progressStyles.getPropertyValue('--uicProgressSize'), 10);
+    this.progressValue = settings.progressValue;
+    this.progressRadius = settings.progressRadius || 0.4;
+
+    this.progressCircumference = this.getProgressCircumference(this.progressRadius, this.progressSize);      
+  } 
+
+  setProgressValue(newValue){
+    this.progressValue = newValue;
+  }
+
+  getProgressCircumference(radius, progressBarSize){
+    return 2 * Math.PI * radius * progressBarSize;
+  }
+
+  getProgressGraphValue(progressValue, circumference){
+    return circumference - ((progressValue * circumference) / 100);
+  }    
+
+  convertToEm(value, progressSize){
+    return `${value / progressSize}em`;
+  }
+
+  draw(){     
+    this.nodeProgress.style.setProperty(
+      '--uicProgressGraphValue', 
+      this.convertToEm(
+        this.getProgressGraphValue(this.progressValue, this.progressCircumference),
+        this.progressSize
+      )
+    );      
+  }
+}
+
+class ProgressBar extends Progress{
+  constructor(settings){
+    super({
+      nodeProgress: settings.nodeProgress,
+      progressValue: settings.progressBarValue
+    });
+    this.nodeProgressBarValue = settings.nodeProgressBarValue;
+    this.draw();
+  }
+
+  setProgressBarValue(newValue){
+    super.setProgressValue(newValue);
+    this.draw();
+  }
+
+  draw(){
+    super.draw();
+    this.nodeProgressBarValue.textContent = this.progressValue;
+  }
+}
+
+/*
+* demo initialization
+*/
+
+let demoField = document.querySelector('.js-field-value');
+let nodeDemoProgressBar = document.querySelector('.js-progressbar');
+let demoProgressBar = new ProgressBar({
+  nodeProgress: nodeDemoProgressBar.querySelector('.js-progressbar__progress'), 
+  nodeProgressBarValue: nodeDemoProgressBar.querySelector('.js-progressbar__value'),
+  progressBarValue: demoField.value
+});
+
+/* disabling browser's behavior */  
+
+document.querySelector('.js-form').addEventListener('submit', (event) => {
+  event.preventDefault();
+});
+
+/* changing the progress bar value */  
+
+demoField.addEventListener('change', () => {		
+  if (!demoField.validity.rangeOverflow & !demoField.validity.rangeUnderflow) {
+    demoProgressBar.setProgressBarValue(demoField.value);
+  }
+});
+})();
+  </script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
