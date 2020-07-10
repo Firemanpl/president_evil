@@ -155,10 +155,7 @@ header {
 	
   }
   
-  .c-progressbar__value::after{
-	  content: var(--uicProgressBarUnit);  
-	  
-  }
+
   
   .c-progressbar__value{
 	  font-family: var(--uicProgressBarValueFontFamily);
@@ -176,7 +173,6 @@ header {
   */
   
   .c-progressbar{
-	  --cProgressBarUnit: "%";
 	  --cProgressBarSize: 50vmin;
 	--cProgressBarColor: #ff1744;
 	  --cProgressBarValueFontFamily: inherit;

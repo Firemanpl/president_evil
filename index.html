@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
     integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
-  <link rel="stylesheet" href="/styles/style.css">
+  <link rel="stylesheet" href="styles/style.css">
 </head>
 
 <body>
@@ -64,7 +64,7 @@
         <div class="page">
           <center>
             <div class="c-progressbar js-progressbar">
-              <image src="/images/duda.png" alt="dump" width="10vmin" height="20vmin" class="c-progressbar__value">
+              <image src="images/duda.png" alt="dump" width="10vmin" height="20vmin" class="c-progressbar__value">
               </image>
               <svg class="c-progress js-progressbar__progress">
                 <circle class="c-progress__circle c-progress__progress-bg" cx="50%" cy="50%" r=".4em"
@@ -117,7 +117,7 @@
       // Output the result in an element with id="demo"
       document.getElementById("demo").innerHTML = days + "d " + hours + "h "
         + minutes + "m " + seconds + "s ";
-      let time = 100 - ((days / 1826) * 100);
+      let time = 100 - ((distance / 1577846300000000000) * 100);
       console.log(time);
       demoProgressBar.setProgressBarValue(time);
       // If the count down is over, write some text 
@@ -189,9 +189,6 @@
     /*
     * demo initialization
     */
-
-
-
     let nodeDemoProgressBar = document.querySelector('.js-progressbar');
     let demoProgressBar = new ProgressBar({
       nodeProgress: nodeDemoProgressBar.querySelector('.js-progressbar__progress'),
